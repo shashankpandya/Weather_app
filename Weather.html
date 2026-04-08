@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="Weather.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="search">
+        <input type="text" placeholder="enter city name" spellcheck="false" />
+        <button>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUy8ZUFbezhZKjU9wadDQM6NEWNq_yVh1DM9MLI-MfAO3kM_iWY5c6jlXGe7x29DvnBdE&usqp=CAU"
+            alt="search"
+          />
+        </button>
+      </div>
+      <div class="error">Invalid city name</div>
+      <div class="weather">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/10127/10127236.png"
+          alt="weather-icon"
+          class="weather-icon"
+        />
+        <h1 class="temp">22°C</h1>
+        <h2 class="city">New York</h2>
+        <div class="details">
+          <div class="col">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/9342/9342439.png"
+              alt="humidity"
+            />
+            <div>
+              <p class="humidity">50%</p>
+              <p>Humidity</p>
+            </div>
+          </div>
+          <div class="col">
+            <img
+              src="https://static-00.iconduck.com/assets.00/wind-icon-2048x1563-xzh65ux5.png"
+              alt="wind"
+            />
+            <div>
+              <p class="wind">15 km/hr</p>
+              <p>Wind speed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="Weather.js"></script>
+  </body>
+</html>
