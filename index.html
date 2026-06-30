@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Global Natural Events Awareness Hub – Track wildfires, earthquakes, storms, floods and more in near real-time using NASA EONET data." />
-  <title>🌍 GeoAlert – Global Natural Events Hub</title>
+  <meta name="description" content="GeoAlert – Your complete Earth intelligence platform. Track natural events, live weather, climate data, geography, space weather and more." />
+  <title>🌍 GeoAlert – Earth Intelligence Platform</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -17,6 +17,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <!-- App CSS -->
   <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="modules/modules.css" />
 </head>
 <body>
 
@@ -25,15 +26,20 @@
   <div class="topbar__brand">
     <span class="topbar__logo" aria-hidden="true">🌍</span>
     <span class="topbar__title">GeoAlert</span>
-    <span class="topbar__sub">Natural Events Hub</span>
+    <span class="topbar__sub">Earth Intelligence Platform</span>
   </div>
   <nav class="topbar__nav" role="navigation" aria-label="Main navigation">
-    <button class="nav-btn active" data-view="map"     aria-label="Map view"><i class="fa fa-map" aria-hidden="true"></i> Map</button>
-    <button class="nav-btn"        data-view="list"    aria-label="Events list"><i class="fa fa-list" aria-hidden="true"></i> Events</button>
-    <button class="nav-btn"        data-view="timeline" aria-label="Timeline"><i class="fa fa-timeline" aria-hidden="true"></i> Timeline</button>
-    <button class="nav-btn"        data-view="nearme"  aria-label="Near me"><i class="fa fa-location-dot" aria-hidden="true"></i> Near Me</button>
-    <button class="nav-btn"        data-view="learn"   aria-label="Learn"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Learn</button>
-    <button class="nav-btn"        data-view="stats"   aria-label="Statistics"><i class="fa fa-chart-bar" aria-hidden="true"></i> Stats</button>
+    <button class="nav-btn" data-view="dashboard"    aria-label="Dashboard"><i class="fa fa-house" aria-hidden="true"></i> Home</button>
+    <button class="nav-btn active" data-view="map"   aria-label="Map view"><i class="fa fa-map" aria-hidden="true"></i> Map</button>
+    <button class="nav-btn" data-view="weather"      aria-label="Weather"><i class="fa fa-cloud-sun" aria-hidden="true"></i> Weather</button>
+    <button class="nav-btn" data-view="climate"      aria-label="Climate"><i class="fa fa-temperature-half" aria-hidden="true"></i> Climate</button>
+    <button class="nav-btn" data-view="geography"    aria-label="Geography"><i class="fa fa-earth-americas" aria-hidden="true"></i> Geography</button>
+    <button class="nav-btn" data-view="spaceweather" aria-label="Space Weather"><i class="fa fa-sun" aria-hidden="true"></i> Space</button>
+    <button class="nav-btn" data-view="list"         aria-label="Events list"><i class="fa fa-list" aria-hidden="true"></i> Events</button>
+    <button class="nav-btn" data-view="timeline"     aria-label="Timeline"><i class="fa fa-timeline" aria-hidden="true"></i> Timeline</button>
+    <button class="nav-btn" data-view="nearme"       aria-label="Near me"><i class="fa fa-location-dot" aria-hidden="true"></i> Near Me</button>
+    <button class="nav-btn" data-view="learn"        aria-label="Learn"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Learn</button>
+    <button class="nav-btn" data-view="stats"        aria-label="Statistics"><i class="fa fa-chart-bar" aria-hidden="true"></i> Stats</button>
   </nav>
   <div class="topbar__actions">
     <button id="btnRefresh"  class="icon-btn" title="Refresh data"         aria-label="Refresh data"><i class="fa fa-rotate" aria-hidden="true"></i></button>
@@ -265,6 +271,89 @@
         </div>
       </div>
       <div class="top-events" id="topEventsTable" aria-label="Top events table"></div>
+    </section>
+
+    <!-- ========= VIEW: DASHBOARD ========= -->
+    <section class="view" id="view-dashboard" aria-label="Dashboard home">
+      <div id="dashboardContent" class="dash-content"></div>
+    </section>
+
+    <!-- ========= VIEW: WEATHER ========= -->
+    <section class="view" id="view-weather" aria-label="Weather view">
+      <div class="view-header">
+        <h2><i class="fa fa-cloud-sun" aria-hidden="true"></i> Live Weather</h2>
+        <div class="wx-search-bar">
+          <button id="wxLocBtn" class="btn-secondary" aria-label="Use my location"><i class="fa fa-crosshairs"></i> My Location</button>
+          <input id="wxSearchInput" type="text" placeholder="Search city, country…" aria-label="Search weather location" />
+          <button id="wxSearchBtn" class="btn-primary" aria-label="Search weather"><i class="fa fa-search"></i> Search</button>
+        </div>
+      </div>
+      <div id="weatherContent" class="wx-content">
+        <div class="wx-welcome">
+          <div class="wx-welcome-icon">🌤️</div>
+          <h3>Search any city for live weather</h3>
+          <p>Current conditions · 7-day forecast · Hourly temperature & rain · Air quality · UV index</p>
+          <div class="wx-quick-cities">
+            <button class="wx-city-btn" data-city="London">🇬🇧 London</button>
+            <button class="wx-city-btn" data-city="New York">🇺🇸 New York</button>
+            <button class="wx-city-btn" data-city="Tokyo">🇯🇵 Tokyo</button>
+            <button class="wx-city-btn" data-city="Sydney">🇦🇺 Sydney</button>
+            <button class="wx-city-btn" data-city="Dubai">🇦🇪 Dubai</button>
+            <button class="wx-city-btn" data-city="São Paulo">🇧🇷 São Paulo</button>
+            <button class="wx-city-btn" data-city="Mumbai">🇮🇳 Mumbai</button>
+            <button class="wx-city-btn" data-city="Cairo">🇪🇬 Cairo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= VIEW: CLIMATE ========= -->
+    <section class="view" id="view-climate" aria-label="Climate data view">
+      <div class="view-header">
+        <h2><i class="fa fa-temperature-half" aria-hidden="true"></i> Climate Data</h2>
+      </div>
+      <div id="climateContent" class="clim-content">
+        <div class="wx-welcome">
+          <div class="wx-welcome-icon">🌡️</div>
+          <h3>Explore Climate Normals for Any Location</h3>
+          <p>Monthly temperature ranges · Rainfall patterns · Wind trends · Based on past 12 months of reanalysis data</p>
+          <div class="clim-search-row" style="margin-top:16px;justify-content:center">
+            <input id="climInput" class="clim-search-input" placeholder="Search city or country…" aria-label="Climate search" />
+            <button id="climSearchBtn" class="btn-primary"><i class="fa fa-search"></i> Search</button>
+          </div>
+          <div class="wx-quick-cities" style="margin-top:12px">
+            <button class="clim-city-btn" data-city="London">🇬🇧 London</button>
+            <button class="clim-city-btn" data-city="Phoenix">🇺🇸 Phoenix</button>
+            <button class="clim-city-btn" data-city="Singapore">🇸🇬 Singapore</button>
+            <button class="clim-city-btn" data-city="Reykjavik">🇮🇸 Reykjavik</button>
+            <button class="clim-city-btn" data-city="Nairobi">🇰🇪 Nairobi</button>
+            <button class="clim-city-btn" data-city="Buenos Aires">🇦🇷 Buenos Aires</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= VIEW: GEOGRAPHY ========= -->
+    <section class="view" id="view-geography" aria-label="Geography explorer">
+      <div class="view-header">
+        <h2><i class="fa fa-earth-americas" aria-hidden="true"></i> Geography Explorer</h2>
+      </div>
+      <div id="geoContent" class="geo-content"></div>
+    </section>
+
+    <!-- ========= VIEW: SPACE WEATHER ========= -->
+    <section class="view" id="view-spaceweather" aria-label="Space weather view">
+      <div class="view-header">
+        <h2><i class="fa fa-sun" aria-hidden="true"></i> Space Weather</h2>
+        <button id="btnRefreshSpace" class="btn-secondary" style="margin-left:auto"><i class="fa fa-rotate"></i> Refresh</button>
+      </div>
+      <div id="spaceWeatherContent" class="sw-content">
+        <div class="wx-welcome">
+          <div class="wx-welcome-icon">☀️</div>
+          <h3>Space Weather Monitor</h3>
+          <p>Solar flares · CME · Kp index · Aurora forecast · Solar wind data from NOAA SWPC & NASA DONKI</p>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -554,6 +643,12 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Leaflet MarkerCluster -->
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<!-- Feature Modules -->
+<script src="modules/weather.js"></script>
+<script src="modules/climate.js"></script>
+<script src="modules/geography.js"></script>
+<script src="modules/spaceweather.js"></script>
+<script src="modules/dashboard.js"></script>
 <!-- App JS -->
 <script src="app.js"></script>
 </body>

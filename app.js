@@ -1186,6 +1186,8 @@ function renderCurrentView() {
     renderStats(State.filteredEvents);
   } else if (view === 'learn') {
     renderLearn(State.filteredEvents);
+  } else if (view === 'dashboard') {
+    DashboardModule.render();
   }
 }
 
@@ -1201,12 +1203,35 @@ function switchView(name) {
   const btn = document.querySelector(`.nav-btn[data-view="${name}"]`);
   if (btn) btn.classList.add('active');
 
-  // Invalidate map size when switching to map
   if (name === 'map' && State.maps.main) {
     setTimeout(() => State.maps.main.invalidateSize(), 100);
   }
   if (name === 'nearme' && State.maps.nearme) {
     setTimeout(() => State.maps.nearme.invalidateSize(), 100);
+  }
+  // New modules
+  if (name === 'dashboard')    { DashboardModule.render(); return; }
+  if (name === 'weather')      { WeatherModule.init(); return; }
+  if (name === 'climate')      {
+    ClimateModule.init();
+    // Bind welcome buttons
+    document.querySelectorAll('.clim-city-btn').forEach(b => {
+      b.onclick = () => ClimateModule.render(b.dataset.city);
+    });
+    document.getElementById('climSearchBtn')?.addEventListener('click', () => {
+      const v = document.getElementById('climInput')?.value.trim();
+      if (v) ClimateModule.render(v);
+    });
+    document.getElementById('climInput')?.addEventListener('keypress', e => {
+      if (e.key === 'Enter') document.getElementById('climSearchBtn')?.click();
+    });
+    return;
+  }
+  if (name === 'geography')    { GeographyModule.initView(); return; }
+  if (name === 'spaceweather') {
+    SpaceWeatherModule.render();
+    document.getElementById('btnRefreshSpace')?.addEventListener('click', () => SpaceWeatherModule.render());
+    return;
   }
 
   if (State.filteredEvents.length) renderCurrentView();
@@ -1622,15 +1647,28 @@ function initTourButtons() {
    18. INIT  (updated to include guide init)
    ============================================================ */
 document.addEventListener('DOMContentLoaded', async () => {
+  // Expose globals needed by modules
+  window.CATEGORY_META = CATEGORY_META;
+  window.State = State;
+  window.switchView = switchView;
+
   applyURLParams();
   MapModule.init();
   bindEvents();
   initWelcome();
   initHelpPanel();
   initTourButtons();
+
+  // Wire weather quick-city buttons
+  document.querySelectorAll('.wx-city-btn').forEach(b => {
+    b.addEventListener('click', () => WeatherModule.render(b.dataset.city));
+  });
+
+  // Default view: dashboard
+  switchView('dashboard');
+
   await loadData();
 
-  // Auto-retry every 60s if we're on fallback data
   setInterval(() => {
     const banner = document.getElementById('offlineBanner');
     if (banner) {
