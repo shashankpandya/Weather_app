@@ -12,6 +12,8 @@
 const EONET_BASE   = 'https://eonet.gsfc.nasa.gov/api/v3';
 const NOMINATIM    = 'https://nominatim.openstreetmap.org/search';
 const CACHE_TTL_MS = 3 * 60 * 1000; // 3 minutes
+const MAX_RETRIES  = 3;
+const RETRY_DELAY  = 1500; // ms base delay (doubles each retry)
 
 const CATEGORY_META = {
   wildfires:       { icon:'🔥', color:'#ff6b35', label:'Wildfires',        desc:'Uncontrolled fires that burn in wildland vegetation.' },
